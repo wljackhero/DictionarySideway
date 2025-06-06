@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Vocab Translator",
+  "version": "1.0",
+  "description": "Translate and save vocabulary with context.",
+  "permissions": ["storage", "scripting", "activeTab", "downloads"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
+
