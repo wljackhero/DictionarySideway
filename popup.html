@@ -3,17 +3,111 @@
 <head>
   <title>Vocab Export</title>
   <style>
-    body { font-family: sans-serif; padding: 10px; width: 300px; }
-    button { width: 100%; padding: 10px; margin-bottom: 10px; }
-    ul { list-style: none; padding: 0; }
-    li { margin-bottom: 8px; }
-    .remove { color: red; margin-left: 10px; cursor: pointer; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 16px;
+      width: 320px;
+      margin: 0;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 16px;
+    }
+    .header {
+      margin-bottom: 16px;
+    }
+    .button-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    button {
+      flex: 1;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background: #2196F3;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #1976D2;
+    }
+    #clearAll {
+      background: #f44336;
+    }
+    #clearAll:hover {
+      background: #d32f2f;
+    }
+    .vocab-container {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+    }
+    #vocab-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .vocab-item {
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .vocab-item:last-child {
+      border-bottom: none;
+    }
+    .vocab-content {
+      flex: 1;
+    }
+    .vocab-word {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .vocab-translation {
+      color: #666;
+      font-size: 14px;
+    }
+    .remove {
+      color: #f44336;
+      margin-left: 8px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .remove:hover {
+      background: #ffebee;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 24px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
-  <button id="export">Export Vocab</button>
-  <button id="clearAll">Clear All</button>
-  <ul id="vocab-list"></ul>
+  <div class="container">
+    <div class="header">
+      <h2 style="margin: 0 0 8px 0; font-size: 18px;">Saved Vocabulary</h2>
+    </div>
+    <div class="button-group">
+      <button id="export">Export CSV</button>
+      <button id="clearAll">Clear All</button>
+    </div>
+    <div class="vocab-container">
+      <ul id="vocab-list"></ul>
+    </div>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>

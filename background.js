@@ -2,6 +2,9 @@
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.action === 'downloadVocab') {
     chrome.storage.local.get({ vocab: [] }, ({ vocab }) => {
+      vocab.forEach(v => {
+        console.log('[Export] word:', v.word, '| sentence:', v.sentence);
+      });
       let content = '\uFEFF'; // UTF-8 BOM
       content += 'Word,Translation,Sentence,URL,Timestamp\n';
       content += vocab.map(v =>
