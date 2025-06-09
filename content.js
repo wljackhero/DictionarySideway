@@ -45,14 +45,14 @@ function showPopup(text, translation, range, isPending = false) {
     outline: none;
   `;
 
-  // 先获取 sentence
   const sentence = getSentenceFromSelection();
 
   if (!isPending && translation.length <= 100) {
     popup.addEventListener('click', (e) => {
-      saveVocab(text, translation, sentence); // 直接用提前获取的 sentence
+      saveVocab(text, translation, sentence);
       popup.remove();
       showSavedToast(e.pageX, e.pageY);
+      e.stopPropagation(); // 阻止冒泡，避免触发全局关闭
     });
   }
 
@@ -71,17 +71,16 @@ function showPopup(text, translation, range, isPending = false) {
   popup.style.left = `${left}px`;
   document.body.appendChild(popup);
 
-  // 自动获取焦点
-  popup.focus();
-
-  // 添加失去焦点事件监听
-  popup.addEventListener('blur', () => {
-    setTimeout(() => {
-      if (document.activeElement !== popup) {
-        popup.remove();
-      }
-    }, 100);
-  });
+  // 全局点击监听，点击 popup 以外区域时关闭
+  function handleClickOutside(e) {
+    if (!popup.contains(e.target)) {
+      popup.remove();
+      document.removeEventListener('mousedown', handleClickOutside, true);
+    }
+  }
+  setTimeout(() => {
+    document.addEventListener('mousedown', handleClickOutside, true);
+  }, 0);
 }
 
 function saveVocab(word, translation, sentence) {
